@@ -17,3 +17,6 @@ Route::get('random', function (Request $request) {
     return \App\Models\GlossaryWord::GetRandomWord();
 });
 
+Route::get('word', function (Request $request) {
+    return \App\Models\GlossaryWord::find(1);
+});

@@ -11,7 +11,7 @@ class SeedTags extends Command
      *
      * @var string
      */
-    protected $signature = 'command:name';
+    protected $signature = 'tags:seed';
 
     /**
      * The console command description.
@@ -37,6 +37,6 @@ class SeedTags extends Command
      */
     public function handle()
     {
-        //
+
     }
 }

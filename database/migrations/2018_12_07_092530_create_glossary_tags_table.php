@@ -16,7 +16,8 @@ class CreateGlossaryTagsTable extends Migration
         Schema::create('glossary_tags', function (Blueprint $table) {
             $table->increments('id');
             $table->string('tag');
-            $table->timestamps();
+            $table->timestamp('created_at')->default(\DB::raw('CURRENT_TIMESTAMP'));
+            $table->timestamp('updated_at')->default(\DB::raw('CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP'));
         });
     }
 

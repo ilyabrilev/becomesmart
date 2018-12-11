@@ -12,7 +12,7 @@ class GlossaryWord extends Model
     }
 
     public static function GetRandomWord() : ?GlossaryWord {
-        $word = self::where('is_hidden', '=', 0)->inRandomOrder()->first();
+        $word = self::with('tags')->where('is_hidden', '=', 0)->inRandomOrder()->first();
         return $word;
     }
 }

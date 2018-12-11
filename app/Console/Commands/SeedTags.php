@@ -37,6 +37,16 @@ class SeedTags extends Command
      */
     public function handle()
     {
+        $tagPrefix = 'tag';
 
+        $tagArrayToAdd = [];
+        for ($i = 0; $i < 10; $i++) {
+            $tagArrayToAdd[] = [
+                'tag'   => $tagPrefix . $i
+            ];
+        }
+
+        \DB::table('glossary_tags')
+            ->insert($tagArrayToAdd);
     }
 }

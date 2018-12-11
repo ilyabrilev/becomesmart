@@ -155,6 +155,18 @@ $(document).ready(function() {
                     $("#result-word").text(data.word);
                     $("#result-definition").text(data.definition);
                     $("#result-link-for-more").attr("href", data.link_for_more);
+
+                    let tagsToRemove = $(".word-tag").toArray();
+                    tagsToRemove.forEach(function(tagElement) {
+                        tagElement.remove();
+                    });
+                    let tagContainer = $(".tag-container");
+                    let divBoilerplate = $("a.tag-element-boilerplate");
+                    data.tags.forEach(function(tagObj) {
+                        let tagDiv = divBoilerplate.clone().removeClass('tag-element-boilerplate').addClass("word-tag").show();
+                        tagDiv.html("#" + tagObj.tag);
+                        tagDiv.appendTo(tagContainer);
+                    });
                 });
             }
         });

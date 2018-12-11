@@ -13,5 +13,9 @@
 
 Route::get('/', function () {
     $word = \App\Models\GlossaryWord::GetRandomWord();
-    return view('template-steak.steak', ['word' => $word]);
+    return view('template-steak.main', ['word' => $word]);
 });
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');

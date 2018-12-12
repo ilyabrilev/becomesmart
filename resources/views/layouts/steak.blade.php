@@ -17,20 +17,20 @@
     <meta name="description" content="">
 
     <!-- stylesheets css -->
-    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="{{asset('css/bootstrap.min.css')}}">
 
-    <link rel="stylesheet" href="css/magnific-popup.css">
+    <link rel="stylesheet" href="{{asset('css/magnific-popup.css')}}">
 
-    <link rel="stylesheet" href="css/animate.min.css">
-    <link rel="stylesheet" href="css/font-awesome.min.css">
+    <link rel="stylesheet" href="{{asset('css/animate.min.css')}}">
+    <link rel="stylesheet" href="{{asset('css/font-awesome.min.css')}}">
 
-    <link rel="stylesheet" href="css/nivo-lightbox.css">
-    <link rel="stylesheet" href="css/nivo_themes/default/default.css">
+    <link rel="stylesheet" href="{{asset('css/nivo-lightbox.css')}}">
+    <link rel="stylesheet" href="{{asset('css/nivo_themes/default/default.css')}}">
 
-    <link rel="stylesheet" href="css/hover-min.css">
-    <link rel="stylesheet" href="css/flexslider.css">
+    <link rel="stylesheet" href="{{asset('css/hover-min.css')}}">
+    <link rel="stylesheet" href="{{asset('css/flexslider.css')}}">
 
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="{{asset('css/style.css')}}">
 
     <link href='https://fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>
     <link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,300,600' rel='stylesheet' type='text/css'>
@@ -112,25 +112,25 @@
 </section>
 
 <!-- javscript js -->
-<script src="js/jquery.js"></script>
-<script src="js/bootstrap.min.js"></script>
+<script src="{{asset('js/jquery.js')}}"></script>
+<script src="{{asset('js/bootstrap.min.js')}}"></script>
 
-<script src="js/jquery.magnific-popup.min.js"></script>
+<script src="{{asset('js/jquery.magnific-popup.min.js')}}"></script>
 
-<script src="js/jquery.sticky.js"></script>
-<script src="js/jquery.backstretch.min.js"></script>
+<script src="{{asset('js/jquery.sticky.js')}}"></script>
+<script src="{{asset('js/jquery.backstretch.min.js')}}"></script>
 
-<script src="js/isotope.js"></script>
-<script src="js/imagesloaded.min.js"></script>
-<script src="js/nivo-lightbox.min.js"></script>
+<script src="{{asset('js/isotope.js')}}"></script>
+<script src="{{asset('js/imagesloaded.min.js')}}"></script>
+<script src="{{asset('js/nivo-lightbox.min.js')}}"></script>
 
-<script src="js/jquery.flexslider-min.js"></script>
+<script src="{{asset('js/jquery.flexslider-min.js')}}"></script>
 
-<script src="js/jquery.parallax.js"></script>
-<script src="js/smoothscroll.js"></script>
-<script src="js/wow.min.js"></script>
+<script src="{{asset('js/jquery.parallax.js')}}"></script>
+<script src="{{asset('js/smoothscroll.js')}}"></script>
+<script src="{{asset('js/wow.min.js')}}"></script>
 
-<script src="js/custom.js"></script>
+<script src="{{asset('js/custom.js')}}"></script>
 
 <script>
     linkForMore = "{{url('/api/random')}}";

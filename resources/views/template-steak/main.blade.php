@@ -12,7 +12,7 @@
 				<div class="tag-container">
 					<a href="#" class="tag-element-boilerplate fadeInUp btn btn-default btn-sm hvr-bounce-to-top smoothScroll" style="display: none" data-wow-delay="1.3s">#</a>
 					@foreach ($word->tags as $tag)
-						<a href="#" class="word-tag fadeInUp btn btn-default btn-sm hvr-bounce-to-top smoothScroll" data-wow-delay="1.3s">#{{$tag->tag}}</a>
+						<a href="{{url('/tag/words?tag_id='.$tag->id)}}" class="word-tag fadeInUp btn btn-default btn-sm hvr-bounce-to-top smoothScroll" data-wow-delay="1.3s">#{{$tag->tag}}</a>
 					@endforeach
 				</div>
 				<a id="result-link-for-more" href="{{$word->link_for_more}}" class="fadeInUp btn btn-default hvr-bounce-to-top smoothScroll" data-wow-delay="1.3s">Детали...</a>

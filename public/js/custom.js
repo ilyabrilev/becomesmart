@@ -86,8 +86,9 @@ $(document).ready(function() {
 
     /*  smoothscroll
     ----------------------------------------------*/
+    /*
     $(function() {
-        $('#home a/*, .navbar-default a*/').bind('click', function(event) {
+        $('#home a, .navbar-default a').bind('click', function(event) {
             var $anchor = $(this);
             $('html, body').stop().animate({
                 //scrollTop: $($anchor.attr('href')).offset().top - 49
@@ -95,8 +96,7 @@ $(document).ready(function() {
             event.preventDefault();
         });
     });
-
-
+    */
 
 
     /* home slideshow section
@@ -166,6 +166,7 @@ $(document).ready(function() {
                     data.tags.forEach(function(tagObj) {
                         let tagDiv = divBoilerplate.clone().removeClass('tag-element-boilerplate').addClass("word-tag").show();
                         tagDiv.html("#" + tagObj.tag);
+                        tagDiv.attr("href", "/tag/words?tag_id=" + tagObj.id);
                         tagDiv.appendTo(tagContainer);
                     });
                 });

@@ -8,7 +8,13 @@ use Validator;
 
 class GlossaryTagController extends Controller
 {
-    public function GetWordsByTag(Request $request) {
+
+    public function GetWordsByTagHtml(Request $request) {
+        $tag = $this->GetWordsByTagAbstract($request);
+        return view('template-steak.tagwords', ['tag' => $tag]);
+    }
+
+    public function GetWordsByTagAbstract(Request $request) {
         $validator = Validator::make($request->all(), [
             'tag_id' => 'required|integer',
         ]);
@@ -21,6 +27,7 @@ class GlossaryTagController extends Controller
         $tag = GlossaryTag::with('words')
             ->find($request->tag_id);
 
+        return $tag;
 
     }
 }

@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 
-    <title>Steak House - Free HTML CSS Template</title>
+    <title>Become Smart</title>
     <!--
 
     Template 2083 Steak House
@@ -52,7 +52,7 @@
                 <span class="icon icon-bar"></span>
                 <span class="icon icon-bar"></span>
             </button>
-            <a href="#" class="navbar-brand">Steak House</a>
+            <a href="{{url('/')}}" class="navbar-brand">Become Smart</a>
         </div>
         <div class="collapse navbar-collapse">
             <ul class="nav navbar-nav navbar-right">

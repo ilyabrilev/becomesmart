@@ -11,13 +11,11 @@
 |
 */
 
-Route::get('/', function () {
-    $word = \App\Models\GlossaryWord::GetRandomWord();
-    return view('template-steak.main', ['word' => $word]);
-});
+
+Route::get('/', 'GlossaryWordController@Index');
+Route::get('word', 'GlossaryWordController@Get');
 
 Auth::routes();
-
 Route::get('/home', function() {
     return redirect('/');
 });

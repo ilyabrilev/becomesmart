@@ -16,7 +16,9 @@
 					@endforeach
 				</div>
 				<a id="result-link-for-more" href="{{$word->link_for_more}}" class="fadeInUp btn btn-default hvr-bounce-to-top smoothScroll" data-wow-delay="1.3s">Детали...</a>
-				<a id="get-another-word" href="#" class="fadeInUp btn btn-default hvr-bounce-to-top smoothScroll" data-wow-delay="1.3s">Еще...</a>
+				@if ($moreButtonEnabled)
+					<a id="get-another-word" href="#" class="fadeInUp btn btn-default hvr-bounce-to-top smoothScroll" data-wow-delay="1.3s">Еще...</a>
+				@endif
 			</div>
 		</div>
 	</div>

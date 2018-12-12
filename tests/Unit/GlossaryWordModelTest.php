@@ -19,4 +19,14 @@ class GlossaryWordModelTest extends TestCase
         $word = GlossaryWord::GetRandomWord();
         $this->assertInstanceOf(GlossaryWord::class, $word);
     }
+
+    public function test_get_specific_word_found() {
+        $word = GlossaryWord::GetOrDefault(1);
+        $this->assertEquals(1, $word->id);
+    }
+
+    public function test_get_specific_word_default() {
+        $word = GlossaryWord::GetOrDefault(-9999);
+        $this->assertEquals(-1, $word->id);
+    }
 }

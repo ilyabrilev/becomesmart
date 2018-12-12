@@ -29,7 +29,7 @@ class WordWebTest extends TestCase
      */
     public function test_get_specific_word_page_fail_wrong_parameter() {
         $response = $this->get('/word?id=asdsadasdas');
-        $response->assertStatus(422);
+        $response->assertStatus(200);
     }
 
     /**
@@ -37,6 +37,6 @@ class WordWebTest extends TestCase
      */
     public function test_get_specific_word_page_fail_wrong_id() {
         $response = $this->get('/word?id=404');
-        $response->assertStatus(404);
+        $response->assertStatus(200);
     }
 }

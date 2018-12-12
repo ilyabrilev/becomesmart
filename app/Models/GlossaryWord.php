@@ -32,10 +32,8 @@ class GlossaryWord extends Model
 
     public static function GetOrDefault(int $id) : GlossaryWord {
         $word = self::with('tags')
-            ->where('id', '=', $id)
             ->where('is_hidden', '=', 0)
-            ->inRandomOrder()
-            ->first();
+            ->find($id);
         if (!$word) {
             $word = new self();
         }

@@ -22,7 +22,7 @@ class GlossaryWordController extends Controller
         return $this->GetAbstract($request);
     }
 
-    private function GetAbstract(Request $request) : GlossaryWord {
+    public function GetAbstract(Request $request) : GlossaryWord {
         $validator = Validator::make($request->all(), [
             'id' => 'required|integer',
         ]);

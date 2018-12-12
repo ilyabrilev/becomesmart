@@ -14,10 +14,15 @@ class GlossaryWordController extends Controller
     }
 
     public function GetHtml(Request $request) {
-
+        $word = $this->GetAbstract($request);
+        return view('template-steak.main', ['word' => $word, 'moreButtonEnabled' => false]);
     }
 
-    public function Get(Request $request) {
+    public function GetJson(Request $request) {
+        return $this->GetAbstract($request);
+    }
+
+    private function GetAbstract(Request $request) : GlossaryWord {
         $validator = Validator::make($request->all(), [
             'id' => 'required|integer',
         ]);
@@ -28,7 +33,7 @@ class GlossaryWordController extends Controller
         else {
             $word = GlossaryWord::GetOrDefault($request->id);
         }
-        return view('template-steak.main', ['word' => $word, 'moreButtonEnabled' => false]);
+        return $word;
     }
 
 

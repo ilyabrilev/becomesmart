@@ -13,7 +13,7 @@
 
 
 Route::get('/', 'GlossaryWordController@Index');
-Route::get('word', 'GlossaryWordController@Get');
+Route::get('word', 'GlossaryWordController@GetHtml');
 
 Auth::routes();
 Route::get('/home', function() {

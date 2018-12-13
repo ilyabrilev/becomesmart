@@ -14,10 +14,10 @@
 
 Route::get('/', 'GlossaryWordController@Index');
 Route::get('word', 'GlossaryWordController@GetHtml');
-
 Route::get('tag/words', 'GlossaryTagController@GetWordsByTagHtml');
 
-Auth::routes();
+Auth::routes(['verify' => true]);
+
 Route::get('/home', function() {
     return redirect('/');
 });

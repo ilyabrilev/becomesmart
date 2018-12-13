@@ -97,6 +97,10 @@
     </div>
 </div>
 
+<div class="container">
+    @include('layouts.partials._alert')
+</div>
+
 @yield('content')
 
 <!-- Copyright section -->

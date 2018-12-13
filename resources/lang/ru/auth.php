@@ -13,8 +13,8 @@ return [
     |
     */
 
-    'failed' => 'These credentials do not match our records.',
-    'throttle' => 'Too many login attempts. Please try again in :seconds seconds.',
-    'now_verify_email'  => 'Verify email to proceed',
+    'failed'    => 'Имя пользователя и/или пароль не верны',
+    'throttle'  => 'Слишком много попыток логина. Попробуйте снова через :seconds секунд.',
+    'now_verify_email'  => 'Подтвердите e-mail для продолжения регистрации',
 
 ];

@@ -10,6 +10,9 @@ class GlossaryWordController extends Controller
 {
     public function Index() {
         $word = GlossaryWord::GetRandomWord();
+        if (!$word) {
+            $word = new GlossaryWord();
+        }
         return view('template-steak.main', ['word' => $word, 'moreButtonEnabled' => true]);
     }
 

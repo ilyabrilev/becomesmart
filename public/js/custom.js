@@ -147,33 +147,6 @@ $(document).ready(function() {
     -------------------------------*/
     new WOW({ mobile: false }).init();
 
-
-    $(function() {
-        $('#get-another-word').bind('click', function(event) {
-            event.preventDefault();
-            if (linkForMore) {
-                $.get(linkForMore, function (data) {
-                    $("#result-word").text(data.word);
-                    $("#result-definition").text(data.definition);
-                    $("#result-link-for-more").attr("href", data.link_for_more);
-
-                    let tagsToRemove = $(".word-tag").toArray();
-                    tagsToRemove.forEach(function(tagElement) {
-                        tagElement.remove();
-                    });
-                    let tagContainer = $(".tag-container");
-                    let divBoilerplate = $("a.tag-element-boilerplate");
-                    data.tags.forEach(function(tagObj) {
-                        let tagDiv = divBoilerplate.clone().removeClass('tag-element-boilerplate').addClass("word-tag").show();
-                        tagDiv.html("#" + tagObj.tag);
-                        tagDiv.attr("href", "/tag/words?tag_id=" + tagObj.id);
-                        tagDiv.appendTo(tagContainer);
-                    });
-                });
-            }
-        });
-    });
-
 });
 
 

@@ -9,8 +9,7 @@ use \App\Models\GlossaryWord;
 class GlossaryWordController extends Controller
 {
     public function Index() {
-        $word = GlossaryWord::GetRandomWord();
-        return view('template-steak.main', ['word' => $word, 'moreButtonEnabled' => true]);
+        return view('template-steak.main', ['word' => '{}', 'moreButtonEnabled' => true]);
     }
 
     public function GetHtml(Request $request) {

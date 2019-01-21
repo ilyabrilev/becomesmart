@@ -13,6 +13,10 @@ class GlossaryTagController extends Controller
         $tag = $this->GetWordsByTagAbstract($request);
         return view('template-steak.tagwords', ['tag' => $tag]);
     }
+    public function GetWordsByTagHtml_New(Request $request) {
+        $tag = $this->GetWordsByTagAbstract($request);
+        return view('new.tagwords', ['tag' => $tag]);
+    }
 
     public function GetWordsByTagAbstract(Request $request) {
         $validator = Validator::make($request->all(), [

@@ -43577,12 +43577,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     props: ["word", "morebuttonenabled", "tag_prefix", "load_word"],
     data: function data() {
         return {
+            isLoading: false,
             localWord: {
                 word: 'Word not found',
                 definition: '',
@@ -43591,6 +43591,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             },
             wordNotFound: {
                 word: 'Word not found',
+                definition: '',
+                tags: [],
+                link_for_more: '#'
+            },
+            wordIsLoading: {
+                word: 'Загрузка...',
                 definition: '',
                 tags: [],
                 link_for_more: '#'
@@ -43608,12 +43614,18 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
     methods: {
         another_word: function another_word() {
+            this.isLoading = true;
+            this.localWord = this.wordIsLoading;
             axios.get('http://becomesmartass/api/random').then(function (response) {
                 if (response.status === 200) {
                     this.localWord = response.data;
                 } else {
                     this.localWord = this.wordNotFound;
                 }
+            }.bind(this)).catch(function () {
+                this.localWord = this.wordNotFound;
+            }.bind(this)).finally(function () {
+                this.isLoading = false;
             }.bind(this));
         }
     }
@@ -43629,54 +43641,36 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c("div", [
     _c("h1", {
-      staticClass: "wow fadeInUp",
-      attrs: { id: "result-word", "data-wow-delay": "0.6s" },
+      attrs: { id: "result-word" },
       domProps: { textContent: _vm._s(_vm.localWord.word) }
     }),
     _vm._v(" "),
     _c("p", {
-      staticClass: "wow fadeInUp",
-      attrs: { id: "result-definition", "data-wow-delay": "1.0s" },
+      attrs: { id: "result-definition" },
       domProps: { textContent: _vm._s(_vm.localWord.definition) }
     }),
     _vm._v(" "),
     _c(
       "div",
       { staticClass: "container tag-container" },
-      [
-        _c(
-          "a",
-          {
-            staticClass:
-              "tag-element-boilerplate fadeInUp btn btn-default btn-sm hvr-bounce-to-top smoothScroll",
-            staticStyle: { display: "none" },
-            attrs: { href: "#", "data-wow-delay": "1.3s" }
-          },
-          [_vm._v("#")]
-        ),
-        _vm._v(" "),
-        _vm._l(this.localWord.tags, function(tag) {
-          return _c("a", {
-            staticClass:
-              "word-tag fadeInUp btn btn-default btn-sm hvr-bounce-to-top smoothScroll",
-            attrs: { "data-wow-delay": "1.3s", href: this.tag_prefix + tag.id },
-            domProps: { textContent: _vm._s(tag.tag) }
-          })
+      _vm._l(this.localWord.tags, function(tag) {
+        return _c("a", {
+          staticClass: "word-tag btn btn-sm",
+          attrs: { href: _vm.tag_prefix + tag.id },
+          domProps: { textContent: _vm._s(tag.tag) }
         })
-      ],
-      2
+      }),
+      0
     ),
     _vm._v(" "),
     _c("div", { staticClass: "container" }, [
       _c(
         "a",
         {
-          staticClass:
-            "fadeInUp btn btn-default hvr-bounce-to-top smoothScroll",
+          staticClass: "btn",
           attrs: {
             id: "result-link-for-more",
-            href: _vm.localWord.link_for_more,
-            "data-wow-delay": "1.3s"
+            href: _vm.localWord.link_for_more
           }
         },
         [_vm._v("Детали...")]
@@ -43686,9 +43680,9 @@ var render = function() {
         ? _c(
             "a",
             {
-              staticClass:
-                "fadeInUp btn btn-default hvr-bounce-to-top smoothScroll",
-              attrs: { id: "", href: "#", "data-wow-delay": "1.3s" },
+              staticClass: "btn",
+              class: { "is-active": _vm.isLoading, active: _vm.isLoading },
+              attrs: { id: "", href: "#" },
               on: {
                 click: function($event) {
                   _vm.another_word()

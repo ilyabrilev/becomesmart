@@ -67,7 +67,7 @@
     </div>
 </nav>
 
-<div class="container">
+<div id="alert-div" class="container">
     @include('layouts.partials._alert')
 </div>
 
@@ -77,16 +77,12 @@
 <section id="copyright">
     <div class="container">
         <div class="">
-            <p>Copyright © 2018 Whatever Company - Designed by <a class="designed-by" href="https://plus.google.com/+Tooplate/" target="_blank">Tooplate</a></p>
+            <p>Copyright © 2018 Whatever Company</p>
         </div>
     </div>
 </section>
 
 <script src="{{asset('js/app.js')}}"></script>
-
-<script>
-    linkForMore = "{{url('/api/random')}}";
-</script>
 
 </body>
 </html>

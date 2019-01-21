@@ -13945,41 +13945,11 @@ window.Vue = __webpack_require__(36);
 
 Vue.component('example-component', __webpack_require__(39));
 
-Vue.component("word-div", {
-    props: ["word", "morebuttonenabled", "get_word"],
-    data: {
-        localWord: null
-    },
-    template: '\n\t\t<div class="col-md-offset-2 col-md-8 col-sm-12">\n            <h1 id="result-word" class="wow fadeInUp" data-wow-delay="0.6s" v-text=word.word></h1>\n            <p id="result-definition" class="wow fadeInUp" data-wow-delay="1.0s" v-text="word.definition"></p>\n            <div class="tag-container">\n                <a href="#" class="tag-element-boilerplate fadeInUp btn btn-default btn-sm hvr-bounce-to-top smoothScroll" style="display: none" data-wow-delay="1.3s">#</a>\n            </div>\n            <a id="result-link-for-more" v-bind:href="word.link_for_more" class="fadeInUp btn btn-default hvr-bounce-to-top smoothScroll" data-wow-delay="1.3s">\u0414\u0435\u0442\u0430\u043B\u0438...</a>\n\n            <a v-if="morebuttonenabled" @click="get_word()" id="" href="#" class="fadeInUp btn btn-default hvr-bounce-to-top smoothScroll" data-wow-delay="1.3s">\u0415\u0449\u0435...</a>\n        </div>\n\t',
-    methods: {
-        another_word: function another_word() {
-            axios.get('http://becomesmartass/api/random').then(function (response) {
-                this.word = response.data;
-                console.log(this.word);
-            });
-        }
-    }
-});
-
 var app = new Vue({
-    el: '#home',
-    data: {
-        word: { "id": 305, "word": '\u041A\u0443\u043B\u044C\u0442\u0443\u0440\u0442\u0440\u0435\u0433\u0435\u0440', "definition": '\u0412 \u0438\u0440\u043E\u043D\u0438\u0447\u0435\u0441\u043A\u043E\u043C \u0441\u043C\u044B\u0441\u043B\u0435 \u0430\u0433\u0440\u0435\u0441\u0441\u0438\u0432\u043D\u044B\u0439 \u043D\u043E\u0441\u0438\u0442\u0435\u043B\u044C \u043A\u0443\u043B\u044C\u0442\u0443\u0440\u044B, \u0435\u0451 \xAB\u043D\u0430\u0441\u0430\u0436\u0434\u0430\u0442\u0435\u043B\u044C\xBB.', "is_hidden": 0, "link_for_more": 'https://ru.wiktionary.org/wiki/\u043A\u0443\u043B\u044C\u0442\u0443\u0440\u0442\u0440\u0435\u0433\u0435\u0440', "created_at": "2018-12-05 20:34:46", "updated_at": "2018-12-05 20:34:46", "author": 0, "tags": [{ "id": 10, "tag": "tag9", "created_at": "2018-12-07 22:54:49", "updated_at": "2018-12-07 22:54:49", "pivot": { "glossary_word_id": 305, "glossary_tag_id": 10 } }] }
-    },
-    methods: {
-        get_word: function get_word() {
-            axios.get('http://becomesmartass/api/random').then(function (response) {
-                this.word = response.data;
-                console.log(this.word);
-            });
-        }
-    },
-    mounted: function mounted() {
-        axios.get('http://becomesmartass/api/random').then(function (response) {
-            this.word = response.data;
-            console.log(this.word);
-        });
-    }
+  el: '#home',
+  data: function data() {
+    return {};
+  }
 });
 
 /***/ }),
@@ -36335,8 +36305,8 @@ module.exports = function spread(callback) {
 
 "use strict";
 /* WEBPACK VAR INJECTION */(function(global, setImmediate) {/*!
- * Vue.js v2.5.21
- * (c) 2014-2018 Evan You
+ * Vue.js v2.5.22
+ * (c) 2014-2019 Evan You
  * Released under the MIT License.
  */
 
@@ -36965,7 +36935,7 @@ if (true) {
       ? vm.options
       : vm._isVue
         ? vm.$options || vm.constructor.options
-        : vm || {};
+        : vm;
     var name = options.name || options._componentTag;
     var file = options.__file;
     if (!name && file) {
@@ -37060,9 +37030,9 @@ Dep.prototype.notify = function notify () {
   }
 };
 
-// the current target watcher being evaluated.
-// this is globally unique because there could be only one
-// watcher being evaluated at any time.
+// The current target watcher being evaluated.
+// This is globally unique because only one watcher
+// can be evaluated at a time.
 Dep.target = null;
 var targetStack = [];
 
@@ -37590,13 +37560,26 @@ function mergeHook (
   parentVal,
   childVal
 ) {
-  return childVal
+  var res = childVal
     ? parentVal
       ? parentVal.concat(childVal)
       : Array.isArray(childVal)
         ? childVal
         : [childVal]
-    : parentVal
+    : parentVal;
+  return res
+    ? dedupeHooks(res)
+    : res
+}
+
+function dedupeHooks (hooks) {
+  var res = [];
+  for (var i = 0; i < hooks.length; i++) {
+    if (res.indexOf(hooks[i]) === -1) {
+      res.push(hooks[i]);
+    }
+  }
+  return res
 }
 
 LIFECYCLE_HOOKS.forEach(function (hook) {
@@ -37832,7 +37815,7 @@ function mergeOptions (
   normalizeProps(child, vm);
   normalizeInject(child, vm);
   normalizeDirectives(child);
-  
+
   // Apply extends and mixins on the child options,
   // but only if it is a raw options object that isn't
   // the result of another mergeOptions call.
@@ -38765,6 +38748,8 @@ function resolveAsyncComponent (
       // (async resolves are shimmed as synchronous during SSR)
       if (!sync) {
         forceRender(true);
+      } else {
+        contexts.length = 0;
       }
     });
 
@@ -38932,8 +38917,8 @@ function eventsMixin (Vue) {
     }
     // array of events
     if (Array.isArray(event)) {
-      for (var i = 0, l = event.length; i < l; i++) {
-        vm.$off(event[i], fn);
+      for (var i$1 = 0, l = event.length; i$1 < l; i$1++) {
+        vm.$off(event[i$1], fn);
       }
       return vm
     }
@@ -38946,16 +38931,14 @@ function eventsMixin (Vue) {
       vm._events[event] = null;
       return vm
     }
-    if (fn) {
-      // specific handler
-      var cb;
-      var i$1 = cbs.length;
-      while (i$1--) {
-        cb = cbs[i$1];
-        if (cb === fn || cb.fn === fn) {
-          cbs.splice(i$1, 1);
-          break
-        }
+    // specific handler
+    var cb;
+    var i = cbs.length;
+    while (i--) {
+      cb = cbs[i];
+      if (cb === fn || cb.fn === fn) {
+        cbs.splice(i, 1);
+        break
       }
     }
     return vm
@@ -41125,34 +41108,14 @@ function resolveConstructorOptions (Ctor) {
 function resolveModifiedOptions (Ctor) {
   var modified;
   var latest = Ctor.options;
-  var extended = Ctor.extendOptions;
   var sealed = Ctor.sealedOptions;
   for (var key in latest) {
     if (latest[key] !== sealed[key]) {
       if (!modified) { modified = {}; }
-      modified[key] = dedupe(latest[key], extended[key], sealed[key]);
+      modified[key] = latest[key];
     }
   }
   return modified
-}
-
-function dedupe (latest, extended, sealed) {
-  // compare latest and sealed to ensure lifecycle hooks won't be duplicated
-  // between merges
-  if (Array.isArray(latest)) {
-    var res = [];
-    sealed = Array.isArray(sealed) ? sealed : [sealed];
-    extended = Array.isArray(extended) ? extended : [extended];
-    for (var i = 0; i < latest.length; i++) {
-      // push original options and not sealed options to exclude duplicated options
-      if (extended.indexOf(latest[i]) >= 0 || sealed.indexOf(latest[i]) < 0) {
-        res.push(latest[i]);
-      }
-    }
-    return res
-  } else {
-    return latest
-  }
 }
 
 function Vue (options) {
@@ -41523,7 +41486,7 @@ Object.defineProperty(Vue, 'FunctionalRenderContext', {
   value: FunctionalRenderContext
 });
 
-Vue.version = '2.5.21';
+Vue.version = '2.5.22';
 
 /*  */
 

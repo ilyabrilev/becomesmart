@@ -9,19 +9,20 @@ use \App\Models\GlossaryWord;
 class GlossaryWordController extends Controller
 {
     public function Index() {
-        return view('template-steak.main', ['word' => '{}', 'moreButtonEnabled' => true]);
+        $word = new GlossaryWord();
+        return view('template-steak.main', ['word' => $word, 'moreButtonEnabled' => true, 'doLoadWord' => true]);
     }
 
-    public function GetHtml(Request $request) {
-        $word = $this->GetAbstract($request);
-        return view('template-steak.main', ['word' => $word, 'moreButtonEnabled' => false]);
+    public function GetWordHtml(Request $request) {
+        $word = $this->GetWordAbstract($request);
+        return view('template-steak.main', ['word' => $word->toJson(), 'moreButtonEnabled' => false, 'doLoadWord' => false]);
     }
 
-    public function GetJson(Request $request) {
-        return $this->GetAbstract($request);
+    public function GetWordJson(Request $request) {
+        return $this->GetWordAbstract($request);
     }
 
-    public function GetAbstract(Request $request) : GlossaryWord {
+    public function GetWordAbstract(Request $request) : GlossaryWord {
         $validator = Validator::make($request->all(), [
             'id' => 'required|integer',
         ]);
@@ -33,6 +34,10 @@ class GlossaryWordController extends Controller
             $word = GlossaryWord::GetOrDefault($request->id);
         }
         return $word;
+    }
+
+    public function IndexNew() {
+        return view('new.main', ['word' => '{}', 'moreButtonEnabled' => true]);
     }
 
 

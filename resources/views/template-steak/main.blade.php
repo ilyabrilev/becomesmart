@@ -6,23 +6,35 @@
 	<div class="gradient-overlay"></div>
 	<div class="container">
 		<div class="row">
-			<word-div :word="{{$word}}" :morebuttonenabled="true" :tag_prefix="'{{url('/tag/words?tag_id=')}}'"></word-div>
+			<word-div
+					:word="{{$word}}"
+					:morebuttonenabled="{{$moreButtonEnabled ? 'true' : 'false'}}"
+					:tag_prefix="`{{url('/tag/words?tag_id=')}}`"
+					:load_word="{{$doLoadWord ? 'true' : 'false'}}"
+			>
+			</word-div>
 		</div>
 	</div>
 </section>
 
 <script >
     Vue.component("word-div", {
-        props: ["word", "morebuttonenabled", "tag_prefix"],
+        props: ["word", "morebuttonenabled", "tag_prefix", "load_word"],
         data() {
             return this.word ? { localWord: this.word } :
 				{
 					localWord: {
-						word: 'plaeholder',
-						definition: 'definition',
+						word: 'Word not found',
+						definition: '',
 						tags: [],
 						link_for_more: '#'
-				}
+				},
+					wordNotFound: {
+						word: 'Word not found',
+						definition: '',
+						tags: [],
+						link_for_more: '#'
+                }
             };
         },
         template: `
@@ -34,7 +46,7 @@
                 <a 	class="word-tag fadeInUp btn btn-default btn-sm hvr-bounce-to-top smoothScroll" data-wow-delay="1.3s"
 					v-for="tag in this.localWord.tags"
 					v-text="tag.tag"
-					v-bind:href ="this.tag_prefix + tag.id"
+					v-bind:href ="tag_prefix + tag.id"
 				></a>
             </div>
             <a id="result-link-for-more" v-bind:href="localWord.link_for_more" class="fadeInUp btn btn-default hvr-bounce-to-top smoothScroll" data-wow-delay="1.3s">Детали...</a>
@@ -43,16 +55,20 @@
         </div>
 	`,
         created() {
-            axios.get('http://becomesmartass/api/random')
-                .then(function(response) {
-                    this.localWord = response.data;
-                }.bind(this));
+            if (this.load_word) {
+                this.another_word();
+            }
         },
         methods: {
             another_word: function () {
                 axios.get('http://becomesmartass/api/random')
                     .then(function(response) {
-                        this.localWord = response.data;
+                        if (response.status === 200) {
+                            this.localWord = response.data;
+                        }
+                        else {
+                            this.localWord = this.wordNotFound;
+						}
                     }.bind(this));
             }
         }

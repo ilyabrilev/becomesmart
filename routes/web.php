@@ -13,8 +13,14 @@
 
 
 Route::get('/', 'GlossaryWordController@Index');
-Route::get('word', 'GlossaryWordController@GetHtml');
+Route::get('word', 'GlossaryWordController@GetWordHtml');
 Route::get('tag/words', 'GlossaryTagController@GetWordsByTagHtml');
+
+Route::prefix('new')->group(function () {
+    Route::get('/', 'GlossaryWordController@IndexNew');
+    Route::get('word', 'GlossaryWordController@IndexNew');
+    Route::get('tag/words', 'GlossaryTagController@GetWordsByTagHtml');
+});
 
 Auth::routes(['verify' => true]);
 

@@ -5,9 +5,13 @@
 <section id="home" class="parallax-section">
 	<div class="gradient-overlay"></div>
 	<div class="container">
-		<div class="row">
-			<word-div :word="{{$word}}" :morebuttonenabled="true" :tag_prefix="'{{url('/tag/words?tag_id=')}}'"></word-div>
-		</div>
+		<word-div
+				:word="{{$word}}"
+				:morebuttonenabled="{{$moreButtonEnabled ? 'true' : 'false'}}"
+				:tag_prefix="`{{url('/tag/words?tag_id=')}}`"
+				:load_word="{{$doLoadWord ? 'true' : 'false'}}"
+		>
+		</word-div>
 	</div>
 </section>
 

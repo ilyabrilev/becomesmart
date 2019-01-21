@@ -17,8 +17,8 @@ Route::get('word', 'GlossaryWordController@GetWordHtml');
 Route::get('tag/words', 'GlossaryTagController@GetWordsByTagHtml');
 
 Route::prefix('new')->group(function () {
-    Route::get('/', 'GlossaryWordController@IndexNew');
-    Route::get('word', 'GlossaryWordController@IndexNew');
+    Route::get('/', 'GlossaryWordController_New@Index');
+    Route::get('word', 'GlossaryWordController_New@GetWordHtml');
     Route::get('tag/words', 'GlossaryTagController@GetWordsByTagHtml');
 });
 

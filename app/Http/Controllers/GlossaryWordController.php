@@ -36,10 +36,4 @@ class GlossaryWordController extends Controller
         return $word;
     }
 
-    public function IndexNew() {
-        return view('new.main', ['word' => '{}', 'moreButtonEnabled' => true]);
-    }
-
-
-
 }

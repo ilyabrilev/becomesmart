@@ -2,7 +2,7 @@
 
 @section('content')
 <!-- Home section -->
-<section id="home" class="parallax-section">
+<section id="home" class="app parallax-section">
 	<div class="gradient-overlay"></div>
 	<div class="container">
 		<word-div

@@ -18,7 +18,7 @@ window.Vue = require('vue');
 Vue.component('word-div', require('./components/WordContainerComponent.vue'));
 
 const app = new Vue({
-    el: '#home',
+    el: '.app',
     data() {
         return {}
     }

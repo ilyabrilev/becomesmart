@@ -2,7 +2,7 @@
 
 @section('content')
 <!-- Home section -->
-<section id="tagwords" class="">
+<section id="tagwords" class="app">
 	<div class="tag-title-container">
 		<h2>{{$tag->tag}}</h2>
 		<h4>{{"Слова с тегом $tag->tag"}}</h4>

@@ -994,7 +994,7 @@ window.Vue = __webpack_require__(35);
 Vue.component('word-div', __webpack_require__(38));
 
 var app = new Vue({
-  el: '#home',
+  el: '.app',
   data: function data() {
     return {};
   }

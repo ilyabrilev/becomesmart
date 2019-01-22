@@ -16,7 +16,7 @@
                             <label for="email" class="label">{{ __('E-Mail Address') }}</label>
 
                             <div class="control">
-                                <input id="" type="email" class="input {{ $errors->has('email') ? ' is-danger' : '' }}" name="email" value="{{ old('email') }}" required autofocus>
+                                <input id="email" type="email" class="input {{ $errors->has('email') ? ' is-danger' : '' }}" name="email" value="{{ old('email') }}" required autofocus>
 
                                 @if ($errors->has('email'))
                                     <span class="invalid-feedback" role="alert">

@@ -15,3 +15,4 @@ use Illuminate\Http\Request;
 
 Route::get('random', 'GlossaryWordController@GetRandomWordJson')
     ->middleware('cors');
+Route::get('word', 'GlossaryWordController@GetWordJson');

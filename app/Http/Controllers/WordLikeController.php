@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\GlossaryWord;
 use App\Models\WordLike;
 use Illuminate\Http\Request;
 use \Illuminate\Support\Facades\Auth;
@@ -16,13 +17,17 @@ class WordLikeController extends Controller
 
         $user_id = Auth::id();
         if (!$user_id) {
-            return response()->json(['error' => 'Could not find authenticated user']);
+            return response()->json(['error' => 'Could not find authenticated user'])->setStatusCode(401);
         }
 
-        $isLikeExists = WordLike::FindByUserAndWord($user_id, $word_id);
+        $likedWord = GlossaryWord::GetOrNull($word_id, $user_id);
 
-        if ($isLikeExists) {
-            $isLikeExists->delete();
+        if (!$likedWord) {
+            return response()->json(['error' => 'Could not find the word'])->setStatusCode(400);
+        }
+
+        if ($likedWord->is_current_user_like) {
+            WordLike::DeleteByIds($user_id, $word_id);
         }
         else {
             $newLike = new WordLike();

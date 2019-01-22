@@ -16,7 +16,7 @@ class GlossaryWord extends Model
         'author'        => 0,
         'tags'          => [],
         'likes_count'   => 0,
-        'is_current_user_liked' => false
+        'is_current_user_like' => false
     ];
 
     public function tags()
@@ -31,7 +31,7 @@ class GlossaryWord extends Model
     public static function WithLikes($word, $user_id) {
         if ($word) {
             $word->likes_count = WordLike::FindWordLikesCount($word->id);
-            $word->is_current_user_liked = WordLike::FindByUserAndWord($user_id, $word->id) ? true : false;
+            $word->is_current_user_like = WordLike::FindByUserAndWord($user_id, $word->id) ? true : false;
         }
     }
 
@@ -45,13 +45,18 @@ class GlossaryWord extends Model
     }
 
     public static function GetOrDefault(int $id, $user_id = null) : GlossaryWord {
+        $word = self::GetOrNull($id, $user_id);
+        if (!$word) {
+            $word = new self();
+        }
+        return $word;
+    }
+
+    public static function GetOrNull(int $id, $user_id = null) : ?GlossaryWord {
         $word = self::with('tags')
             ->where('is_hidden', '=', 0)
             ->find($id);
         self::WithLikes($word, $user_id);
-        if (!$word) {
-            $word = new self();
-        }
         return $word;
     }
 

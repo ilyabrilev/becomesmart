@@ -11,9 +11,13 @@ class WordLike extends Model
     const UPDATED_AT = null;
 
     public function delete() {
+        return self::DeleteByIds($this->user_id, $this->word_id);
+    }
+
+    public static function DeleteByIds($user_id, $word_id) {
         return self::query()
-            ->where('user_id', '=', $this->user_id)
-            ->where('word_id', '=', $this->word_id)
+            ->where('user_id', '=', $user_id)
+            ->where('word_id', '=', $word_id)
             ->delete();
     }
 

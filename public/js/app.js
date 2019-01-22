@@ -43577,31 +43577,61 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-    props: ["word", "morebuttonenabled", "tag_prefix", "load_word", "get_random_word_url"],
+    props: ["word", "morebuttonenabled", "tag_prefix", "load_word", "get_random_word_url", "like_word_url"],
     data: function data() {
         return {
             isLoading: false,
             localWord: {
+                id: -1,
                 word: 'Word not found',
                 definition: '',
                 tags: [],
-                link_for_more: '#'
+                link_for_more: '#',
+                likes_count: 0,
+                is_current_user_like: false
             },
             wordNotFound: {
+                id: -1,
                 word: 'Word not found',
                 definition: '',
                 tags: [],
-                link_for_more: '#'
+                link_for_more: '#',
+                likes_count: 0,
+                is_current_user_like: false
             },
             wordIsLoading: {
+                id: -1,
                 word: 'Загрузка...',
                 definition: '',
                 tags: [],
-                link_for_more: '#'
+                link_for_more: '#',
+                likes_count: 0,
+                is_current_user_like: false
             }
         };
+    },
+
+    computed: {
+        is_liked: function is_liked() {
+            return this.localWord.is_current_user_like;
+        },
+        is_disliked: function is_disliked() {
+            return !this.localWord.is_current_user_like;
+        }
     },
     created: function created() {
         if (this.word) {
@@ -43626,6 +43656,14 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 this.localWord = this.wordNotFound;
             }.bind(this)).finally(function () {
                 this.isLoading = false;
+            }.bind(this));
+        },
+        like_word: function like_word() {
+            axios.post(this.like_word_url, { word_id: this.localWord.id }).then(function (response) {
+                this.localWord.likes_count = response.data.likes_count;
+                this.localWord.is_current_user_like = response.data.user_liked;
+            }.bind(this)).catch(function () {
+                //toDo: emit an event to an error component
             }.bind(this));
         }
     }
@@ -43676,13 +43714,54 @@ var render = function() {
         [_vm._v("Детали...")]
       ),
       _vm._v(" "),
+      _vm.is_liked
+        ? _c(
+            "a",
+            {
+              staticClass: "btn",
+              on: {
+                click: function($event) {
+                  _vm.like_word()
+                }
+              }
+            },
+            [
+              _vm._m(0),
+              _vm._v(" "),
+              _c("span", {
+                domProps: { textContent: _vm._s(_vm.localWord.likes_count) }
+              })
+            ]
+          )
+        : _vm._e(),
+      _vm._v(" "),
+      _vm.is_disliked
+        ? _c(
+            "a",
+            {
+              staticClass: "btn",
+              on: {
+                click: function($event) {
+                  _vm.like_word()
+                }
+              }
+            },
+            [
+              _vm._m(1),
+              _vm._v(" "),
+              _c("span", {
+                domProps: { textContent: _vm._s(_vm.localWord.likes_count) }
+              })
+            ]
+          )
+        : _vm._e(),
+      _vm._v(" "),
       _vm.morebuttonenabled
         ? _c(
             "a",
             {
               staticClass: "btn",
               class: { "is-active": _vm.isLoading, active: _vm.isLoading },
-              attrs: { id: "", href: "#" },
               on: {
                 click: function($event) {
                   _vm.another_word()
@@ -43695,7 +43774,24 @@ var render = function() {
     ])
   ])
 }
-var staticRenderFns = []
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("span", { staticClass: "icon is-small" }, [
+      _c("i", { staticClass: "fas fa-heart" })
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("span", { staticClass: "icon is-small" }, [
+      _c("i", { staticClass: "far fa-heart" })
+    ])
+  }
+]
 render._withStripped = true
 module.exports = { render: render, staticRenderFns: staticRenderFns }
 if (false) {

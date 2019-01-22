@@ -28,15 +28,20 @@ class WordLikeController extends Controller
 
         if ($likedWord->is_current_user_like) {
             WordLike::DeleteByIds($user_id, $word_id);
+            $userLiked = false;
         }
         else {
             $newLike = new WordLike();
             $newLike->user_id = $user_id;
             $newLike->word_id = $word_id;
             $newLike->save();
+            $userLiked = true;
         }
 
-        return response()->json(['likes_count' => WordLike::FindWordLikesCount($word_id)]);
+        return response()->json([
+            'user_liked'    => $userLiked,
+            'likes_count'   => WordLike::FindWordLikesCount($word_id)
+        ]);
     }
 
 }

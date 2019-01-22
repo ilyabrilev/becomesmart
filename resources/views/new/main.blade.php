@@ -11,6 +11,7 @@
 				:tag_prefix="`{{url('/tag/words?tag_id=')}}`"
 				:load_word="{{$doLoadWord ? 'true' : 'false'}}"
 				:get_random_word_url="`{{url('http://becomesmartass/ajax/random')}}`"
+				:like_word_url="`{{url('http://becomesmartass/ajax/like')}}`"
 		>
 		</word-div>
 	</div>

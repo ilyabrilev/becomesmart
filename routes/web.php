@@ -31,7 +31,7 @@ Route::prefix('ajax')->group(function () {
     Route::get('random', 'GlossaryWordController@GetRandomWordJson')
         ->middleware('cors');
     Route::get('word', 'GlossaryWordController@GetJson');
-    Route::any('like', 'WordLikeController@ToggleLike')
+    Route::post('like', 'WordLikeController@ToggleLike')
         ->middleware('auth');
 });
 

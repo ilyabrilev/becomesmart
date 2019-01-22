@@ -26,3 +26,12 @@ Auth::routes(['verify' => true]);
 Route::get('/home', function() {
     return redirect('/');
 });
+
+Route::prefix('ajax')->group(function () {
+    Route::get('random', 'GlossaryWordController@GetRandomWordJson')
+        ->middleware('cors');
+    Route::get('word', 'GlossaryWordController@GetJson');
+    Route::any('like', 'WordLikeController@ToggleLike')
+        ->middleware('auth');
+});
+

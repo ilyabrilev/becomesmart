@@ -18,7 +18,7 @@
 
 <script >
     export default {
-        props: ["word", "morebuttonenabled", "tag_prefix", "load_word"],
+        props: ["word", "morebuttonenabled", "tag_prefix", "load_word", "get_random_word_url"],
         data() {
             return {
                     isLoading: false,
@@ -54,7 +54,7 @@
             another_word: function () {
                 this.isLoading = true;
                 this.localWord = this.wordIsLoading;
-                axios.get('http://becomesmartass/api/random')
+                axios.get(this.get_random_word_url)
                     .then(function(response) {
                         if (response.status === 200) {
                             this.localWord = response.data;

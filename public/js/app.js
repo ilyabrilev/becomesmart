@@ -43579,7 +43579,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-    props: ["word", "morebuttonenabled", "tag_prefix", "load_word"],
+    props: ["word", "morebuttonenabled", "tag_prefix", "load_word", "get_random_word_url"],
     data: function data() {
         return {
             isLoading: false,
@@ -43616,7 +43616,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         another_word: function another_word() {
             this.isLoading = true;
             this.localWord = this.wordIsLoading;
-            axios.get('http://becomesmartass/api/random').then(function (response) {
+            axios.get(this.get_random_word_url).then(function (response) {
                 if (response.status === 200) {
                     this.localWord = response.data;
                 } else {

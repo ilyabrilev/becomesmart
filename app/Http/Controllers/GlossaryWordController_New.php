@@ -3,8 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Validator;
 use \App\Models\GlossaryWord;
+use \Illuminate\Support\Facades\Auth;
 
 class GlossaryWordController_New extends Controller
 {

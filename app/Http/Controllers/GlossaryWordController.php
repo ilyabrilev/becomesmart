@@ -5,12 +5,17 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Validator;
 use \App\Models\GlossaryWord;
+use \Illuminate\Support\Facades\Auth;
 
 class GlossaryWordController extends Controller
 {
     public function Index() {
         $word = new GlossaryWord();
         return view('template-steak.main', ['word' => $word, 'moreButtonEnabled' => true, 'doLoadWord' => true]);
+    }
+
+    public function GetRandomWordJson() {
+        return GlossaryWord::GetRandomWord(Auth::id());
     }
 
     public function GetWordHtml(Request $request) {
@@ -31,7 +36,7 @@ class GlossaryWordController extends Controller
             $word = new GlossaryWord();
         }
         else {
-            $word = GlossaryWord::GetOrDefault($request->id);
+            $word = GlossaryWord::GetOrDefault($request->id, Auth::id());
         }
         return $word;
     }

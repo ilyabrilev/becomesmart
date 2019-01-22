@@ -13,8 +13,5 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::get('random', function (Request $request) {
-    return \App\Models\GlossaryWord::GetRandomWord();
-})->middleware('cors');
-
-Route::get('word', 'GlossaryWordController@GetJson');
+Route::get('random', 'GlossaryWordController@GetRandomWordJson')
+    ->middleware('cors');

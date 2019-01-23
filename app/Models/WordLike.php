@@ -22,10 +22,13 @@ class WordLike extends Model
     }
 
     public static function FindByUserAndWord($user_id, $word_id) {
-        return self::query()
-            ->where('user_id', '=', $user_id)
-            ->where('word_id', '=', $word_id)
-            ->first();
+        if ($user_id !== null) {
+            return self::query()
+                ->where('user_id', '=', $user_id)
+                ->where('word_id', '=', $word_id)
+                ->first();
+        }
+        return null;
     }
 
     public static function FindWordLikesCount($word_id) {

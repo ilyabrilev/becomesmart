@@ -11,15 +11,9 @@
 |
 */
 
-Route::get('/', 'GlossaryWordController_New@Index');
-Route::get('word', 'GlossaryWordController_New@GetWordHtml');
-Route::get('tag/words', 'GlossaryTagController@GetWordsByTagHtml_New');
-
-Route::prefix('old')->group(function () {
-    Route::get('/', 'GlossaryWordController@Index');
-    Route::get('word', 'GlossaryWordController@GetWordHtml');
-    Route::get('tag/words', 'GlossaryTagController@GetWordsByTagHtml');
-});
+Route::get('/', 'GlossaryWordController@Index');
+Route::get('word', 'GlossaryWordController@GetWordHtml');
+Route::get('tag/words', 'GlossaryTagController@GetWordsByTagHtml');
 
 Auth::routes(['verify' => true]);
 

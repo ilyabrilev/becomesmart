@@ -38,6 +38,7 @@ class GlossaryWord extends Model
     public static function GetRandomWord($user_id = null) : ?GlossaryWord {
         $word = self::with('tags')
             ->where('is_hidden', '=', 0)
+            ->where('is_approved', '=', 1)
             ->inRandomOrder()
             ->first();
         self::WithLikes($word, $user_id);
@@ -55,6 +56,7 @@ class GlossaryWord extends Model
     public static function GetOrNull(int $id, $user_id = null) : ?GlossaryWord {
         $word = self::with('tags')
             ->where('is_hidden', '=', 0)
+            ->where('is_approved', '=', 1)
             ->find($id);
         self::WithLikes($word, $user_id);
         return $word;

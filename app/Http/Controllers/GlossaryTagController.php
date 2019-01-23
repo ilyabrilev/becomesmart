@@ -9,11 +9,11 @@ use Validator;
 class GlossaryTagController extends Controller
 {
 
-    public function GetWordsByTagHtml(Request $request) {
+    public function GetWordsByTagHtml_Old(Request $request) {
         $tag = $this->GetWordsByTagAbstract($request);
         return view('template-steak.tagwords', ['tag' => $tag]);
     }
-    public function GetWordsByTagHtml_New(Request $request) {
+    public function GetWordsByTagHtml(Request $request) {
         $tag = $this->GetWordsByTagAbstract($request);
         return view('new.tagwords', ['tag' => $tag]);
     }

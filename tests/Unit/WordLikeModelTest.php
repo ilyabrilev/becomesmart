@@ -17,6 +17,7 @@ class WordLikeModelTest extends TestCase
         $user_id = 0;
         $word_id = 0;
 
+        WordLike::DeleteByIds($user_id, $word_id);
         $this->CheckIfWordIsNotExists($user_id, $word_id);
 
         $newWord = new WordLike();

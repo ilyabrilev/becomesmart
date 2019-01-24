@@ -6,12 +6,14 @@ use Illuminate\Database\Eloquent\Model;
 
 class GlossaryWord extends Model
 {
+    const WIKI_LINK_FOR_MORE_URL = 'https://ru.wiktionary.org/wiki/';
 
     protected $attributes = [
         'id'            => -1,
         'word'          => 'Слово не найдено',
         'definition'    => '',
         'is_hidden'     => 0,
+        'is_approved'   => 1,
         'link_for_more' => '#',
         'author'        => 0,
         'tags'          => [],
@@ -28,10 +30,12 @@ class GlossaryWord extends Model
         return $this->hasMany(WordLike::class);
     }
 
-    public static function WithLikes($word, $user_id) {
+    public static function WithLikes(?GlossaryWord $word, ?int $user_id) {
         if ($word) {
             $word->likes_count = WordLike::FindWordLikesCount($word->id);
-            $word->is_current_user_like = WordLike::FindByUserAndWord($user_id, $word->id) ? true : false;
+            if ($user_id !== null) {
+                $word->is_current_user_like = WordLike::FindByUserAndWord($user_id, $word->id) ? true : false;
+            }
         }
     }
 
@@ -60,6 +64,11 @@ class GlossaryWord extends Model
             ->find($id);
         self::WithLikes($word, $user_id);
         return $word;
+    }
+
+    public static function SearchWordUsingName(string $name) : ?GlossaryWord{
+        return self::where('word', 'LIKE', $name)
+            ->first();
     }
 
 }

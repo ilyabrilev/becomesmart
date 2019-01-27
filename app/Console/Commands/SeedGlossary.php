@@ -91,7 +91,8 @@ class SeedGlossary extends Command
             $arrayToAdd[] = [
                 'word'          => $word,
                 'definition'    => $definition,
-                'link_for_more' => $linkForMore
+                'link_for_more' => $linkForMore,
+                'is_approved' => 1
             ];
         }
 

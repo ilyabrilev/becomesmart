@@ -10,8 +10,8 @@
 				:morebuttonenabled="{{$moreButtonEnabled ? 'true' : 'false'}}"
 				:tag_prefix="`{{url('/tag/words?tag_id=')}}`"
 				:load_word="{{$doLoadWord ? 'true' : 'false'}}"
-				:get_random_word_url="`{{url('/ajax/random')}}`"
-				:like_word_url="`{{url('/ajax/like')}}`"
+				:get_random_word_url="`{{url('api/ajax/random')}}`"
+				:like_word_url="`{{url('api/ajax/like')}}`"
 		>
 		</word-div>
 	</div>

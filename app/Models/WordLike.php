@@ -4,24 +4,62 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * Лайк для слова
+ *
+ * Class WordLike
+ * @package App\Models
+ */
 class WordLike extends Model
 {
+    /**
+     * Составной ключ
+     * @var array
+     */
     protected $primaryKey = ['user_id', 'word_id'];
+
+    /**
+     * Нет инкрементного id
+     * @var bool
+     */
     public $incrementing = false;
+
+    /**
+     *
+     */
     const UPDATED_AT = null;
 
+    /**
+     * Удаление лайка
+     *
+     * @return bool|mixed|null
+     */
     public function delete() {
-        return self::DeleteByIds($this->user_id, $this->word_id);
+        return self::deleteByIds($this->user_id, $this->word_id);
     }
 
-    public static function DeleteByIds($user_id, $word_id) {
+    /**
+     * Удаление лайков
+     *
+     * @param $user_id
+     * @param $word_id
+     * @return mixed
+     */
+    public static function deleteByIds($user_id, $word_id) {
         return self::query()
             ->where('user_id', '=', $user_id)
             ->where('word_id', '=', $word_id)
             ->delete();
     }
 
-    public static function FindByUserAndWord($user_id, $word_id) {
+    /**
+     * Поиск для пользователя и слова
+     *
+     * @param $user_id
+     * @param $word_id
+     * @return \Illuminate\Database\Eloquent\Builder|Model|object|null
+     */
+    public static function findByUserAndWord($user_id, $word_id) {
         if ($user_id !== null) {
             return self::query()
                 ->where('user_id', '=', $user_id)
@@ -31,7 +69,14 @@ class WordLike extends Model
         return null;
     }
 
-    public static function FindWordLikesCount($word_id) {
+    /**
+     * Получение количества лайков для слова
+     * //ToDo: использовать relation
+     *
+     * @param $word_id
+     * @return int
+     */
+    public static function findWordLikesCount($word_id) {
         return self::query()
             ->where('word_id', '=', $word_id)
             ->count();

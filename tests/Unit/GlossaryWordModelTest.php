@@ -14,7 +14,7 @@ class GlossaryWordModelTest extends TestCase
      */
     public function test_get_random_word_success()
     {
-        $word = GlossaryWord::GetRandomWord();
+        $word = GlossaryWord::getRandomWord();
         $this->assertInstanceOf(GlossaryWord::class, $word);
     }
 
@@ -22,7 +22,7 @@ class GlossaryWordModelTest extends TestCase
      * @group models
      */
     public function test_get_specific_word_found() {
-        $word = GlossaryWord::GetOrDefault(1);
+        $word = GlossaryWord::getOrDefault(1);
         $this->assertEquals(1, $word->id);
     }
 
@@ -30,7 +30,7 @@ class GlossaryWordModelTest extends TestCase
      * @group models
      */
     public function test_get_specific_word_default() {
-        $word = GlossaryWord::GetOrDefault(-9999);
+        $word = GlossaryWord::getOrDefault(-9999);
         $this->assertEquals(-1, $word->id);
     }
 }

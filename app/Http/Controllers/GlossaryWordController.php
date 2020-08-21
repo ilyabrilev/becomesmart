@@ -6,19 +6,47 @@ use Illuminate\Http\Request;
 use \App\Models\GlossaryWord;
 use \Illuminate\Support\Facades\Auth;
 
+/**
+ * Контроллер слов
+ *
+ * //ToDo: поделить на web и api
+ *
+ * Class GlossaryWordController
+ * @package App\Http\Controllers
+ */
 class GlossaryWordController extends Controller
 {
-    public function Index() {
+    /**
+     * Главная страница
+     * ToDo: Web
+     *
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function index() {
         $word = new GlossaryWord();
-        return view('new.main', ['word' => $word, 'moreButtonEnabled' => true, 'doLoadWord' => true]);
+        return view('pages.main', ['word' => $word, 'moreButtonEnabled' => true, 'doLoadWord' => true]);
     }
 
-    public function GetWordHtml(Request $request) {
-        $word = $this->GetWordAbstract($request);
-        return view('new.main', ['word' => $word->toJson(), 'moreButtonEnabled' => false, 'doLoadWord' => false]);
+    /**
+     * Страница с конкретным словом, полученным по id.
+     * Переход из списка слов по тегу
+     *
+     * @param Request $request
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function getWordHtml(Request $request) {
+        $word = $this->getWordAbstract($request);
+        return view('pages.main', ['word' => $word->toJson(), 'moreButtonEnabled' => false, 'doLoadWord' => false]);
     }
 
-    public function GetWordAbstract(Request $request) : GlossaryWord {
+    /**
+     * Получение слова по id, либо дефолтного слова
+     * //ToDo: в сервис, убрать валидатор и щависимость от request
+     *
+     * @param Request $request
+     * @return GlossaryWord
+     */
+    public function getWordAbstract(Request $request) : GlossaryWord {
         $validator = \Validator::make($request->all(), [
             'id' => 'required|integer',
         ]);
@@ -27,32 +55,59 @@ class GlossaryWordController extends Controller
             $word = new GlossaryWord();
         }
         else {
-            $word = GlossaryWord::GetOrDefault($request->id, Auth::id());
+            $word = GlossaryWord::getOrDefault($request->id, Auth::id());
         }
         return $word;
     }
 
-    public function GetRandomWordJson() {
-        return GlossaryWord::GetRandomWord(Auth::id());
+    /**
+     * Получение слова в формате json
+     * //ToDo: Api
+     * //ToDo: использовать resource
+     *
+     * @return GlossaryWord|null
+     */
+    public function getRandomWordJson() {
+        return GlossaryWord::getRandomWord(Auth::id());
     }
 
-    public function GetWordJson(Request $request) {
-        return $this->GetWordAbstract($request);
+    /**
+     * Получение конкретного слова в json
+     * //ToDo: Api
+     *
+     * @param Request $request
+     * @return GlossaryWord
+     */
+    public function getWordJson(Request $request) {
+        return $this->getWordAbstract($request);
     }
 
-    public function CheckIfWordExists(Request $request) {
+    /**
+     * Проверка существования слова
+     * //ToDo: Не используется
+     *
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function checkIfWordExists(Request $request) {
         $request->validate([
             'word'          => 'required|string|max:255'
         ]);
 
-        $searchResult = GlossaryWord::SearchWordUsingName($request->word);
+        $searchResult = GlossaryWord::searchWordUsingName($request->word);
         if ($searchResult) {
-            return $this->GetResponseIfWordDoesExists($searchResult);
+            return $this->getResponseIfWordDoesExists($searchResult);
         }
         return response()->json(['message' => 'word not found :)']);
     }
 
-    public function GetResponseIfWordDoesExists($searchResult) {
+    /**
+     * ToDo: удалить
+     *
+     * @param $searchResult
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function getResponseIfWordDoesExists($searchResult) {
         $status = 'The word is approved and displaying';
         if ($searchResult->is_hidden === 1) {
             $status = 'The word is hidden from public eyes for some reason';
@@ -63,7 +118,15 @@ class GlossaryWordController extends Controller
         return response()->json(['errors' => ['word' => "Such word exists in the database. Status: $status"]])->setStatusCode(400);
     }
 
-    public function AddNewWord(Request $request) {
+    /**
+     * Добавление нового слова
+     * //ToDo: не используется
+     *
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     */
+    public function addNewWord(Request $request) {
         $request->validate([
             'word'          => 'required|string|max:255',
             'definition'    => 'required|string',
@@ -76,9 +139,9 @@ class GlossaryWordController extends Controller
         }
 
         //проверка, существует ли слово
-        $searchResult = GlossaryWord::SearchWordUsingName($request->word);
+        $searchResult = GlossaryWord::searchWordUsingName($request->word);
         if ($searchResult) {
-            return $this->GetResponseIfWordDoesExists($searchResult);
+            return $this->getResponseIfWordDoesExists($searchResult);
         }
 
         //проверка, валиден ли url для дополнительной информации
@@ -107,6 +170,9 @@ class GlossaryWordController extends Controller
 
     }
 
+    /**
+     * //ToDo: раелизация
+     */
     public function ApproveAWord() {
 
     }

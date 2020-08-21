@@ -13,7 +13,7 @@ class WordApiTest extends TestCase
      * @return void
      */
     public function test_get_main_page_seccess() {
-        $response = $this->get('/api/random');
+        $response = $this->get('/api/public/random');
         $response->assertStatus(200);
     }
 
@@ -22,7 +22,7 @@ class WordApiTest extends TestCase
      * @group http
      */
     public function test_get_specific_word_page_success() {
-        $response = $this->get('api/word?id=1');
+        $response = $this->get('api/public/word?id=1');
         $response->assertStatus(200)
             ->assertJson(['id' => 1]);
     }
@@ -31,7 +31,7 @@ class WordApiTest extends TestCase
      * @group http
      */
     public function test_get_specific_word_page_fail_wrong_parameter() {
-        $response = $this->get('api/word?id=asdsadasdas');
+        $response = $this->get('api/public/word?id=asdsadasdas');
         $response->assertStatus(200)
             ->assertJson(['id' => -1]);
     }
@@ -40,7 +40,7 @@ class WordApiTest extends TestCase
      * @group http
      */
     public function test_get_specific_word_page_fail_wrong_id() {
-        $response = $this->get('api/word?id=-99999999999');
+        $response = $this->get('api/public/word?id=-99999999999');
         $response->assertStatus(200)
             ->assertJson(['id' => -1]);
     }

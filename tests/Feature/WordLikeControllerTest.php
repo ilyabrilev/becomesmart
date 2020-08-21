@@ -16,11 +16,11 @@ class WordLikeControllerTest extends TestCase
     public function test_toggle_like_word_success()
     {
         $word_id = 1;
-        $existingLikes = WordLike::FindWordLikesCount($word_id);
+        $existingLikes = WordLike::findWordLikesCount($word_id);
         $user = factory(\App\User::class)->create();
 
         $response = $this->actingAs($user)
-            ->json('POST', 'ajax/like', ['word_id' => $word_id]);
+            ->json('POST', 'api/ajax/like', ['word_id' => $word_id]);
 
         $response->assertStatus(200)
             ->assertJson([
@@ -28,7 +28,7 @@ class WordLikeControllerTest extends TestCase
             ]);
 
         $response = $this->actingAs($user)
-            ->json('POST', 'ajax/like', ['word_id' => $word_id]);
+            ->json('POST', 'api/ajax/like', ['word_id' => $word_id]);
 
         $response->assertStatus(200)
             ->assertJson([
@@ -42,7 +42,7 @@ class WordLikeControllerTest extends TestCase
      */
     public function test_toggle_like_word_fail_unauthorized() {
         $word_id = 1;
-        $response = $this->json('POST', 'ajax/like', ['word_id' => $word_id]);
+        $response = $this->json('POST', 'api/ajax/like', ['word_id' => $word_id]);
         $response->assertStatus(401)
             ->assertJson([
                 'message' => 'Unauthenticated.'
@@ -57,7 +57,7 @@ class WordLikeControllerTest extends TestCase
         $word_id = -1;
         $user = factory(\App\User::class)->create();
         $response = $this->actingAs($user)
-            ->json('POST', 'ajax/like', ['word_id' => $word_id]);
+            ->json('POST', 'api/ajax/like', ['word_id' => $word_id]);
         $response->assertStatus(400)
             ->assertJson([
                 'error' => 'Could not find the word'

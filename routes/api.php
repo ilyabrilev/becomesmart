@@ -13,6 +13,16 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::get('random', 'GlossaryWordController@GetRandomWordJson')
-    ->middleware('cors');
-Route::get('word', 'GlossaryWordController@GetWordJson');
+Route::prefix('public')->middleware('cors')->group(function () {
+    Route::get('random', 'GlossaryWordController@getRandomWordJson')
+        ->middleware('cors');
+    Route::get('word', 'GlossaryWordController@getWordJson');
+});
+
+
+Route::prefix('ajax')->group(function () {
+    Route::get('random', 'GlossaryWordController@getRandomWordJson');
+    Route::get('word', 'GlossaryWordController@GetJson');
+    Route::post('like', 'WordLikeController@toggleLike')
+        ->middleware('auth');
+});

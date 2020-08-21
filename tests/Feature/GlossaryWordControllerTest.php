@@ -16,7 +16,7 @@ class GlossaryWordControllerTest extends TestCase
             'id' => 1
         ]);
         $controller = new GlossaryWordController();
-        $response = $controller->GetWordAbstract($request);
+        $response = $controller->getWordAbstract($request);
         $this->assertEquals(1, $response->id);
     }
 
@@ -25,7 +25,7 @@ class GlossaryWordControllerTest extends TestCase
             'id' => 'assasdasdas'
         ]);
         $controller = new GlossaryWordController();
-        $response = $controller->GetWordAbstract($request);
+        $response = $controller->getWordAbstract($request);
         $this->assertEquals(-1, $response->id);
     }
 
@@ -34,7 +34,7 @@ class GlossaryWordControllerTest extends TestCase
             'id' => '999999999999999999999999'
         ]);
         $controller = new GlossaryWordController();
-        $response = $controller->GetWordAbstract($request);
+        $response = $controller->getWordAbstract($request);
         $this->assertEquals(-1, $response->id);
     }
 }

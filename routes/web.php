@@ -11,21 +11,13 @@
 |
 */
 
-Route::get('/', 'GlossaryWordController@Index');
-Route::get('word', 'GlossaryWordController@GetWordHtml');
-Route::get('tag/words', 'GlossaryTagController@GetWordsByTagHtml');
+Route::get('/', 'GlossaryWordController@index');
+Route::get('word', 'GlossaryWordController@getWordHtml');
+Route::get('tag/words', 'GlossaryTagController@getWordsByTagHtml');
 
 Auth::routes(['verify' => true]);
 
 Route::get('/home', function() {
     return redirect('/');
-});
-
-Route::prefix('ajax')->group(function () {
-    Route::get('random', 'GlossaryWordController@GetRandomWordJson')
-        ->middleware('cors');
-    Route::get('word', 'GlossaryWordController@GetJson');
-    Route::post('like', 'WordLikeController@ToggleLike')
-        ->middleware('auth');
 });
 

@@ -57,34 +57,34 @@ class GlossaryWord extends Model
     }
 
     /**
-     * //ToDo: убрать статику
+     * Добавление параметра is_current_user_like
      *
-     * @param GlossaryWord|null $word
      * @param int|null $user_id
      */
-    public static function withLikes(?GlossaryWord $word, ?int $user_id) {
-        if ($word) {
-            $word->likes_count = WordLike::findWordLikesCount($word->id);
-            if ($user_id !== null) {
-                $word->is_current_user_like = WordLike::findByUserAndWord($user_id, $word->id) ? true : false;
-            }
+    public function withLikes(?int $user_id) {
+        $this->likes_count = WordLike::findWordLikesCount($this->id);
+        if ($user_id !== null) {
+            $this->is_current_user_like = WordLike::findByUserAndWord($user_id, $this->id) ? true : false;
+        } else {
+            $this->is_current_user_like = false;
         }
     }
 
     /**
      * Получение случайного слова
-     * //ToDo: убрать в сервис
      *
      * @param null $user_id
      * @return GlossaryWord|null
      */
-    public static function getRandomWord($user_id = null) : ?GlossaryWord {
+    public static function getRandom($user_id = null) : ?GlossaryWord {
         $word = self::with('tags')
             ->where('is_hidden', '=', 0)
             ->where('is_approved', '=', 1)
             ->inRandomOrder()
             ->first();
-        self::withLikes($word, $user_id);
+        if ($word) {
+            $word->withLikes($user_id);
+        }
         return $word;
     }
 
@@ -116,7 +116,9 @@ class GlossaryWord extends Model
             ->where('is_hidden', '=', 0)
             ->where('is_approved', '=', 1)
             ->find($id);
-        self::withLikes($word, $user_id);
+        if ($word) {
+            $word->withLikes($user_id);
+        }
         return $word;
     }
 

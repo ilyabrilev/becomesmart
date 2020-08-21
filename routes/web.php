@@ -11,9 +11,9 @@
 |
 */
 
-Route::get('/', 'GlossaryWordController@index');
-Route::get('word', 'GlossaryWordController@getWordHtml');
-Route::get('tag/words', 'GlossaryTagController@getWordsByTagHtml');
+Route::get('/', 'Web\WordController@index');
+Route::get('words/{word}', 'Web\WordController@show');
+Route::get('tags/{tag}/words', 'Web\TagWordsController@index');
 
 Auth::routes(['verify' => true]);
 

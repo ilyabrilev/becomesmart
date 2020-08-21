@@ -14,15 +14,15 @@ use Illuminate\Http\Request;
 */
 
 Route::prefix('public')->middleware('cors')->group(function () {
-    Route::get('random', 'GlossaryWordController@getRandomWordJson')
+    Route::get('random', 'Api\WordController@random')
         ->middleware('cors');
-    Route::get('word', 'GlossaryWordController@getWordJson');
+    Route::get('words/{word}', 'Api\WordController@show');
 });
 
 
 Route::prefix('ajax')->group(function () {
-    Route::get('random', 'GlossaryWordController@getRandomWordJson');
-    Route::get('word', 'GlossaryWordController@GetJson');
-    Route::post('like', 'WordLikeController@toggleLike')
-        ->middleware('auth');
+    Route::get('random', 'Api\WordController@random');
+    Route::get('words/{word}', 'Api\WordController@show');
+    Route::post('like', 'Api\WordLikeController@toggle')
+        ->middleware('auth:api');
 });

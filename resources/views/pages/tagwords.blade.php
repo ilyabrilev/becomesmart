@@ -13,7 +13,7 @@
 			@foreach ($tag->words as $word)
 				<div class="column tag-column is-one-quarter">
 					<div class="tag-column-content">
-						<a href="{{url('/word?id=' . $word->id)}}">{{$word->word}}</a>
+						<a href="{{url('/words/' . $word->id)}}">{{$word->word}}</a>
 					</div>
 				</div>
 			@endforeach

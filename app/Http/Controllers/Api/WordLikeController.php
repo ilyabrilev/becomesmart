@@ -1,21 +1,29 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Api;
 
+use App\Http\Controllers\Controller;
 use App\Models\GlossaryWord;
 use App\Models\WordLike;
 use Illuminate\Http\Request;
 use \Illuminate\Support\Facades\Auth;
 
 /**
- * Controller for "WordLike" model
+ * Контроллер для лайков слов
  *
  * Class WordLikeController
  * @package App\Http\Controllers
  */
 class WordLikeController extends Controller
 {
-    public function toggleLike(Request $request) {
+    /**
+     * Переключение лайков
+     *
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function toggle(Request $request) {
+        //ToDo: проверить авторизацию, убрать валидацию в реквест, добавить слово как параметр функции
         $request->validate([
             'word_id' => 'required|integer',
         ]);

@@ -6,7 +6,7 @@
             <a 	class="word-tag btn btn-sm"
                   v-for="tag in this.localWord.tags"
                   v-text="tag.tag"
-                  v-bind:href ="tag_prefix + tag.id"
+                  v-bind:href ="tag_prefix + '/' + tag.id + '/words'"
             ></a>
         </div>
         <div class="container">
@@ -86,7 +86,7 @@
                 axios.get(this.get_random_word_url)
                     .then(function(response) {
                         if (response.status === 200) {
-                            this.localWord = response.data;
+                            this.localWord = response.data.data;
                         }
                         else {
                             this.localWord = this.wordNotFound;

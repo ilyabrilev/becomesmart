@@ -14,7 +14,7 @@ class GlossaryWordModelTest extends TestCase
      */
     public function test_get_random_word_success()
     {
-        $word = GlossaryWord::getRandomWord();
+        $word = GlossaryWord::getRandom();
         $this->assertInstanceOf(GlossaryWord::class, $word);
     }
 

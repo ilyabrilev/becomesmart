@@ -53,23 +53,6 @@ class WordLike extends Model
     }
 
     /**
-     * Поиск для пользователя и слова
-     *
-     * @param $user_id
-     * @param $word_id
-     * @return \Illuminate\Database\Eloquent\Builder|Model|object|null
-     */
-    public static function findByUserAndWord($user_id, $word_id) {
-        if ($user_id !== null) {
-            return self::query()
-                ->where('user_id', '=', $user_id)
-                ->where('word_id', '=', $word_id)
-                ->first();
-        }
-        return null;
-    }
-
-    /**
      * Получение количества лайков для слова
      * //ToDo: использовать relation
      *

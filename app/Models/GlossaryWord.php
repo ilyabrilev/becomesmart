@@ -53,7 +53,7 @@ class GlossaryWord extends Model
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function likes() {
-        return $this->hasMany(WordLike::class);
+        return $this->hasMany(WordLike::class, 'word_id');
     }
 
     /**
@@ -62,9 +62,9 @@ class GlossaryWord extends Model
      * @param int|null $user_id
      */
     public function withLikes(?int $user_id) {
-        $this->likes_count = WordLike::findWordLikesCount($this->id);
+        $this->likes_count = $this->likes->count();
         if ($user_id !== null) {
-            $this->is_current_user_like = WordLike::findByUserAndWord($user_id, $this->id) ? true : false;
+            $this->is_current_user_like = $this->likes->where('user_id', '=', $user_id)->count() > 0;
         } else {
             $this->is_current_user_like = false;
         }
